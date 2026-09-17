@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WirePods — Wired buds stay on Mac. Hands-free handoff.</title>
+<meta name="description" content="Wired Apple earbuds plugged into your M4 MacBook only. YouTube on Mac, Reels on iPhone 17 — sound never leaves the buds. Same Wi-Fi, zero taps after one-time pairing, no extra hardware." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="logo">🎧</span> WirePods</div>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#downloads">Downloads</a>
+      <a href="https://github.com/vraj00222/wirepods" target="_blank">GitHub</a>
+      <a class="nav-cta" href="#downloads">Get for Mac + iPhone</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <div class="pill"><span class="dot"></span> Same Wi-Fi only · No cloud · M4 + iPhone 17</div>
+      <h1>Wired buds stay<br/>on the Mac.<br/><span class="accent">Hands-free.</span></h1>
+      <p class="lead">YouTube on the MacBook, Reels on the phone — sound never leaves the wired Apple earbuds plugged into the Mac. One-time pairing on the same Wi-Fi, then zero taps.</p>
+      <div class="cta-row">
+        <a href="#downloads" class="btn primary"><span>Download for Mac</span><small>M4 · macOS 14+</small></a>
+        <a href="#downloads" class="btn dark"><span>Download for iPhone</span><small>iPhone 17 · iOS 17+</small></a>
+      </div>
+      <div class="trust">
+        <span>✓ No extra hardware</span>
+        <span>✓ No App Store</span>
+        <span>✓ No jailbreak</span>
+        <span>✓ Local only</span>
+      </div>
+      <p class="sub">After one-time AirPlay pick, Mac auto-detects YouTube and iPhone auto-claims on play. Both on the same Wi-Fi — that’s what keeps it safe.</p>
+    </div>
+    <div class="hero-visual">
+      <div class="device-stack">
+        <div class="card mac">
+          <div class="card-head"><span class="led"></span> MacBook Pro <span class="chip">M4</span></div>
+          <div class="screen">
+            <div class="yt"><span class="yt-logo">▶ YouTube</span> <span class="live">● live</span></div>
+            <div class="wave"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="earbuds">🎧 → wired buds</div>
+          </div>
+          <div class="hinge"></div>
+        </div>
+        <div class="card phone">
+          <div class="notch"></div>
+          <div class="phone-screen">
+            <div class="reels-tag">Reels</div>
+            <div class="phone-wave"><span></span><span></span><span></span></div>
+            <div class="status">handed to Mac 🎧</div>
+          </div>
+          <div class="airplay-badge">AirPlay → Mac</div>
+        </div>
+        <div class="wifi">⟡ same Wi-Fi ⟡</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="bento">
+  <div class="bento-grid">
+    <div class="tile large">
+      <h3>Zero taps after pairing</h3>
+      <p>Pick your Mac in the AirPlay sheet <strong>once</strong>. iOS remembers it. Next time, press play on the iPhone and it AirPlays to the Mac’s wired buds automatically. Play YouTube on the Mac and it auto-claims back — Mac polls CoreAudio <code>isRunningSomewhere</code>.</p>
+      <div class="steps"><span>1. Same Wi-Fi</span><span>→</span><span>2. Tap AirPlay once</span><span>→</span><span>3. Hands-free forever</span></div>
+    </div>
+    <div class="tile">
+      <h3>Why not “any app”?</h3>
+      <p>iOS sandboxes audio — no app can redirect Reels/YouTube app sound without jailbreak (none for A18/A19 on iOS 26). After pairing, play inside WirePods and it’s automatic. For Instagram directly, the fallback is still one tap: Control Center → Screen Mirroring → Mac. We don’t hide that.</p>
+    </div>
+    <div class="tile">
+      <h3>Local only</h3>
+      <p>Bonjour <code>_wirepods._tcp</code> + <code>_wirepods-audio._tcp</code> over your LAN. No cloud, no account, no third-party SDK. Heartbeat every 5s, 800 ms debounce.</p>
+      <code class="mono">claim / release / duck / heartbeat</code>
+    </div>
+    <div class="tile wide">
+      <h3>Works on your hardware</h3>
+      <p><strong>Tested target:</strong> MacBook Pro M4 (macOS 14+) + iPhone 17 (iOS 17+). Both on the same Wi-Fi, wired Apple earbuds in the Mac. AirPlay Receiver ON, same Apple ID.</p>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="how">
+  <h2>How it works</h2>
+  <div class="how-grid">
+    <div class="step"><span class="num">1</span><h4>Same Wi-Fi pairing</h4><p>Open WirePodsMac (menu bar 🎧) and WirePodsiOS. Both advertise+browse Bonjour. One tap on the AirPlay picker pairs them — trust is persisted.</p></div>
+    <div class="step"><span class="num">2</span><h4>iPhone play → Mac buds</h4><p>Hit play in the iPhone app. It broadcasts <code>claim:iphone</code>; Mac receives and pauses browser YouTube via AppleScript/ScreenCaptureKit. AirPlay carries audio to the wired buds.</p></div>
+    <div class="step"><span class="num">3</span><h4>Mac play → auto back</h4><p>When YouTube starts on the Mac, <code>SystemAudioMonitor</code> detects CoreAudio activity and broadcasts <code>claim:mac</code>. iPhone ducks automatically.</p></div>
+  </div>
+  <div class="compat">Also streams Mac system audio to the phone (ScreenCaptureKit → <code>_wirepods-audio._tcp</code> → <code>AVAudioEngine</code>) for the opposite direction — toggle “Listen to Mac” on the iPhone.</div>
+</section>
+
+<section id="downloads" class="downloads">
+  <h2>Downloads — no App Store</h2>
+  <p class="section-lead">Both apps are sideloaded with your Apple ID via Xcode. No TestFlight wait, no review. Build once, hands-free after.</p>
+  <div class="dl-grid">
+    <div class="dl-card mac-dl">
+      <div class="dl-head"><span class="icon">💻</span><div><h3>WirePodsMac</h3><p>Menu bar app · macOS 14+ · M4 native</p></div><span class="ver">v1.0</span></div>
+      <ul class="checks"><li>AirPlay Receiver helper</li><li>Auto-detects YouTube audio</li><li>Wired output monitor</li><li>ScreenCaptureKit streamer</li></ul>
+      <a class="btn primary full" href="https://github.com/vraj00222/wirepods/releases/latest/download/WirePodsMac.zip" data-dl="mac">Download for Mac <small>WirePodsMac.zip · 3 MB</small></a>
+      <a class="link" href="https://github.com/vraj00222/wirepods" target="_blank">or clone: git clone git@github.com:vraj00222/wirepods.git → open WirePodsMac.xcodeproj</a>
+      <details><summary>Terminal install</summary><pre><code>git clone git@github.com:vraj00222/wirepods.git
+open WirePodsMac/WirePodsMac.xcodeproj
+# Run (⌘R) → allow Screen Recording → 🎧 in menu bar</code></pre></details>
+      <p class="req">Requires: MacBook Pro M4, macOS 14+, same Wi-Fi as iPhone, wired buds set as output</p>
+    </div>
+    <div class="dl-card phone-dl">
+      <div class="dl-head"><span class="icon">📱</span><div><h3>WirePods</h3><p>iOS app · iPhone 17 · iOS 17+</p></div><span class="ver">v1.0</span></div>
+      <ul class="checks"><li>AVFoundation + AVRoutePickerView</li><li>Auto AirPlay to Mac (one tap forever)</li><li>Bonjour handoff, no taps</li><li>No jailbreak, no App Store</li></ul>
+      <a class="btn dark full" href="https://github.com/vraj00222/wirepods/releases/latest" data-dl="ios">Download for iPhone <small>Install via Xcode</small></a>
+      <a class="link" href="https://github.com/vraj00222/wirepods" target="_blank">or clone → open WirePodsiOS.xcodeproj → Run on device</a>
+      <details><summary>Terminal install</summary><pre><code>git clone git@github.com:vraj00222/wirepods.git
+open WirePodsiOS/WirePodsiOS.xcodeproj
+# Signing → your Team → Run on iPhone (not simulator)
+# Allow Local Network → tap AirPlay → pick Mac once</code></pre></details>
+      <p class="req">Requires: iPhone 17, iOS 17+, same Wi-Fi & same Apple ID as Mac, allow Local Network</p>
+    </div>
+  </div>
+  <div class="notice">iOS sideload uses your free Apple ID (7-day cert) or paid developer cert. No data leaves the LAN. <a href="https://github.com/vraj00222/wirepods/blob/main/docs/ARCHITECTURE.md" target="_blank">Architecture →</a></div>
+</section>
+
+<section class="faq">
+  <h2>FAQ</h2>
+  <div class="faq-grid">
+    <div><h4>Do I need to tap every time?</h4><p>No. One tap on the AirPlay picker during first pairing. iOS remembers the route; next launches auto-connect. Same-WiFi discovery is automatic via Bonjour.</p></div>
+    <div><h4>Does it cover Instagram Reels directly?</h4><p>Only inside WirePods’ own player (AVAudioSession wall). For Reels in Instagram, stock iOS fallback is still Control Center → Screen Mirroring → Mac — we document it honestly. No jailbreak for iPhone 17/A18 on iOS 26 today.</p></div>
+    <div><h4>Why same Wi-Fi?</h4><p>Safety + no cloud. Discovery is LAN-only. Both devices must be on the same network (or iPhone via cable) — keeps pairing private and latency low.</p></div>
+    <div><h4>M4 + iPhone 17 supported?</h4><p>Yes — that’s the primary test target. WirePodsMac builds arm64,WirePodsiOS builds iphoneos/iphonesimulator, deployment targets 14.0/17.0.</p></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>© 2026 WirePods — MIT · <a href="https://github.com/vraj00222/wirepods">github.com/vraj00222/wirepods</a></div>
+    <div class="links"><a href="https://github.com/vraj00222/wirepods/blob/main/README.md">Docs</a><a href="https://github.com/vraj00222/wirepods/blob/main/docs/PATH_A_MANUAL.md">Path A</a><a href="https://github.com/vraj00222/wirepods/blob/main/docs/ARCHITECTURE.md">Architecture</a></div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
