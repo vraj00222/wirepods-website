@@ -93,35 +93,47 @@
   <h2>How it works</h2>
   <div class="how-grid">
     <div class="step"><span class="num">1</span><h4>Same Wi-Fi pairing</h4><p>Open WirePodsMac (menu bar 🎧) and WirePodsiOS. Both advertise+browse Bonjour. One tap on the AirPlay picker pairs them — trust is persisted.</p></div>
-    <div class="step"><span class="num">2</span><h4>iPhone play → Mac buds</h4><p>Hit play in the iPhone app. It broadcasts <code>claim:iphone</code>; Mac receives and pauses browser YouTube via AppleScript/ScreenCaptureKit. AirPlay carries audio to the wired buds.</p></div>
+      <div class="step"><span class="num">2</span><h4>iPhone play → Mac buds</h4><p>Hit play in the iPhone app. It broadcasts <code>claim:iphone</code>; Mac receives and pauses browser YouTube via AppleScript. AirPlay carries audio to the wired buds.</p></div>
     <div class="step"><span class="num">3</span><h4>Mac play → auto back</h4><p>When YouTube starts on the Mac, <code>SystemAudioMonitor</code> detects CoreAudio activity and broadcasts <code>claim:mac</code>. iPhone ducks automatically.</p></div>
   </div>
-  <div class="compat">Also streams Mac system audio to the phone (ScreenCaptureKit → <code>_wirepods-audio._tcp</code> → <code>AVAudioEngine</code>) for the opposite direction — toggle “Listen to Mac” on the iPhone.</div>
+  <div class="compat">Main flow you need: iPhone → Mac wired buds via AirPlay. No Screen Recording needed because you’re looking at the iPhone screen.</div>
 </section>
 
 <section id="downloads" class="downloads">
-  <h2>Downloads — no App Store</h2>
-  <p class="section-lead">Both apps are sideloaded with your Apple ID via Xcode. No TestFlight wait, no review. Build once, hands-free after.</p>
+  <h2>Downloads — no App Store, no cable after first run</h2>
+  <p class="section-lead">One command on your M4 Mac does the Mac side automatically. iPhone needs one cable build, then goes wireless on the same Wi-Fi.</p>
+  <div class="tile wide" style="margin-bottom:16px">
+    <h3>⚡️ Simplest (copy-paste in Terminal on your Mac, wired buds plugged in)</h3>
+    <pre style="background:#0a0a0a;color:#e5ffe5;padding:12px;border-radius:12px;overflow:auto"><code>curl -fsSL https://vraj00222.github.io/wirepods-website/install-mac.sh | bash
+# checks macOS 14+, installs WirePodsMac to /Applications, checks Wi-Fi + wired buds, launches 🎧
+./scripts/doctor.sh  # verify ✓</code></pre>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px">Automates: download WirePodsMac.zip → /Applications, Wi-Fi SSID check, AirPlay Receiver hint, wired output check, launch. No Screen Recording needed — you’re looking at the iPhone screen, only iPhone → Mac AirPlay is used.</p>
+  </div>
   <div class="dl-grid">
     <div class="dl-card mac-dl">
       <div class="dl-head"><span class="icon">💻</span><div><h3>WirePodsMac</h3><p>Menu bar app · macOS 14+ · M4 native</p></div><span class="ver">v1.0</span></div>
-      <ul class="checks"><li>AirPlay Receiver helper</li><li>Auto-detects YouTube audio</li><li>Wired output monitor</li><li>ScreenCaptureKit streamer</li></ul>
-      <a class="btn primary full" href="https://github.com/vraj00222/wirepods/releases/latest/download/WirePodsMac.zip" data-dl="mac">Download for Mac <small>WirePodsMac.zip · 3 MB</small></a>
-      <a class="link" href="https://github.com/vraj00222/wirepods" target="_blank">or clone: git clone git@github.com:vraj00222/wirepods.git → open WirePodsMac.xcodeproj</a>
-      <details><summary>Terminal install</summary><pre><code>git clone git@github.com:vraj00222/wirepods.git
-open WirePodsMac/WirePodsMac.xcodeproj
-# Run (⌘R) → allow Screen Recording → 🎧 in menu bar</code></pre></details>
+      <ul class="checks"><li>AirPlay Receiver helper</li><li>Auto-detects YouTube audio</li><li>Wired output monitor</li><li>No Screen Recording needed</li></ul>
+      <a class="btn primary full" href="https://github.com/vraj00222/wirepods/releases/latest/download/WirePodsMac.zip" data-dl="mac">Download for Mac <small>WirePodsMac.zip · unzip to /Applications</small></a>
+      <a class="link" href="https://vraj00222.github.io/wirepods-website/install-mac.sh" target="_blank">or one-liner: curl -fsSL https://vraj00222.github.io/wirepods-website/install-mac.sh | bash</a>
+      <details><summary>What the script automates</summary><pre><code># ./scripts/install-mac.sh does:
+# - checks macOS 14+ & Xcode
+# - downloads WirePodsMac.zip → /Applications
+# - checks Wi-Fi SSID (must match iPhone) & wired buds
+# - hints AirPlay Receiver ON if off
+# - launches 🎧 ; then ./scripts/doctor.sh to verify</code></pre></details>
       <p class="req">Requires: MacBook Pro M4, macOS 14+, same Wi-Fi as iPhone, wired buds set as output</p>
     </div>
     <div class="dl-card phone-dl">
       <div class="dl-head"><span class="icon">📱</span><div><h3>WirePods</h3><p>iOS app · iPhone 17 · iOS 17+</p></div><span class="ver">v1.0</span></div>
       <ul class="checks"><li>AVFoundation + AVRoutePickerView</li><li>Auto AirPlay to Mac (one tap forever)</li><li>Bonjour handoff, no taps</li><li>No jailbreak, no App Store</li></ul>
-      <a class="btn dark full" href="https://github.com/vraj00222/wirepods/archive/refs/tags/v1.0.0.zip" data-dl="ios">Download for iPhone <small>Source zip → open in Xcode · no App Store</small></a>
-      <a class="link" href="https://github.com/vraj00222/wirepods" target="_blank">or clone → open WirePodsiOS.xcodeproj → Run on iPhone 17</a>
-      <details><summary>Terminal install</summary><pre><code>git clone git@github.com:vraj00222/wirepods.git
-open WirePodsiOS/WirePodsiOS.xcodeproj
-# Signing → your Team → Run on iPhone (not simulator)
-# Allow Local Network → tap AirPlay → pick Mac once</code></pre></details>
+      <a class="btn dark full" href="https://github.com/vraj00222/wirepods/archive/refs/tags/v1.0.0.zip" data-dl="ios">Download for iPhone <small>Source zip → then one cable build → wireless after</small></a>
+      <a class="link" href="https://github.com/vraj00222/wirepods/blob/main/scripts/install-ios-wireless.sh" target="_blank">helper: ./scripts/install-ios-wireless.sh (enables wireless)</a>
+      <details><summary>Zero-cable after first build (same Wi-Fi)</summary><pre><code># First time (with cable once):
+git clone git@github.com:vraj00222/wirepods.git
+open WirePodsiOS/WirePodsiOS.xcodeproj  # Signing → Team → select iPhone 17 via cable → ⌘R → allow Local Network → tap AirPlay → pick Mac once → Done
+# In Xcode: Window → Devices & Simulators → iPhone → ✓ Connect via Network → unplug cable
+# Next time (no cable, same Wi-Fi):
+./scripts/install-ios-wireless.sh  # or Xcode → select iPhone (network icon) → ⌘R</code></pre></details>
       <p class="req">Requires: iPhone 17, iOS 17+, same Wi-Fi & same Apple ID as Mac, allow Local Network</p>
     </div>
   </div>
